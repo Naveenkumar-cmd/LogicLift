@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LogicLift — Automate &amp; Scale</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#ffffff;
+      --muted:#f6f9f6;
+      --green-600:#0f9d58;
+      --green-500:#2fb36a;
+      --green-200:#dff6e8;
+      --accent:var(--green-600);
+      --text:#0b1220;
+      --glass: rgba(255,255,255,0.6);
+      --card-shadow: 0 8px 30px rgba(15,25,20,0.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--text);background:var(--bg);}
+
+    /* Page container: vertical carousel with snap */
+    main{height:100vh;overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth}
+    section{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:48px 6vw;scroll-snap-align:start}
+
+    /* header / nav */
+    header{position:fixed;left:24px;right:24px;top:20px;display:flex;align-items:center;justify-content:space-between;z-index:40}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--green-500),var(--green-600));display:grid;place-items:center;color:white;font-weight:700;font-size:18px;box-shadow:var(--card-shadow)}
+    nav{display:flex;gap:14px;align-items:center}
+    nav a{padding:8px 12px;border-radius:10px;color:var(--text);text-decoration:none;font-weight:600}
+    nav a.active{background:var(--muted);}
+    .cta{background:var(--accent);color:white;padding:10px 14px;border-radius:10px;font-weight:700;border:none;cursor:pointer}
+
+    /* right dot nav */
+    .dot-nav{position:fixed;right:22px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:40}
+    .dot{width:12px;height:12px;border-radius:50%;background:var(--muted);box-shadow:0 2px 6px rgba(0,0,0,0.08);cursor:pointer}
+    .dot.active{background:var(--accent);transform:scale(1.2)}
+
+    /* Hero */
+    .hero{width:100%;max-width:1200px;display:grid;grid-template-columns:1fr 460px;gap:36px;align-items:center}
+    .hero-left h1{font-size:40px;margin:0 0 12px;line-height:1.05}
+    .hero-left p{margin:0 0 18px;color:#4b5563}
+    .hero-cta{display:flex;gap:12px}
+    .card{background:var(--muted);padding:18px;border-radius:16px;box-shadow:var(--card-shadow)}
+
+    /* About & Services layout */
+    .about-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;align-items:start}
+    .feature{background:linear-gradient(180deg,var(--bg),var(--green-200));padding:18px;border-radius:12px}
+    .services-list{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .service{background:white;padding:18px;border-radius:12px;box-shadow:var(--card-shadow)}
+
+    /* Contact */
+    .contact-wrap{width:100%;max-width:920px;background:linear-gradient(180deg,white,var(--muted));padding:28px;border-radius:14px;box-shadow:var(--card-shadow)}
+    form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    label{font-size:13px;color:#334155}
+    input,textarea,select{padding:10px;border-radius:10px;border:1px solid #e6eef0;font-size:14px}
+    textarea{resize:vertical;grid-column:1 / -1;min-height:130px}
+    .full{grid-column:1 / -1}
+    .submit{background:var(--accent);color:white;border:none;padding:12px 16px;border-radius:10px;font-weight:700;cursor:pointer}
+
+    /* Footer */
+    footer{padding:28px 6vw;background:linear-gradient(180deg,transparent,var(--muted));}
+    .footer-inner{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
+    .socials{display:flex;gap:10px;align-items:center}
+    .socials a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:white;box-shadow:var(--card-shadow);text-decoration:none}
+    .footer-nav{display:flex;gap:12px;align-items:center}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr;}
+      .services-list{grid-template-columns:repeat(2,1fr)}
+      .about-grid{grid-template-columns:1fr}
+      nav{display:none}
+      header{left:12px;right:12px}
+      .footer-inner{flex-direction:column;align-items:flex-start}
+    }
+    @media (max-width:640px){
+      .services-list{grid-template-columns:1fr}
+      .hero-left h1{font-size:28px}
+      .logo{width:40px;height:40px}
+    }
+
+    /* subtle micro animations */
+    .fade-in{opacity:0;transform:translateY(8px);transition:all .6s cubic-bezier(.2,.9,.3,1)}
+    .in-view{opacity:1;transform:none}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">LL</div>
+      <div>
+        <div style="font-weight:700">LogicLift</div>
+        <div style="font-size:12px;color:#64748b">Zoho implementation &amp; business automation</div>
+      </div>
+    </div>
+
+    <nav aria-label="Primary navigation">
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#about" class="nav-link">About Us</a>
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#contact" class="nav-link">Contact Us</a>
+    </nav>
+
+    <button class="cta nav-link" href="#contact">Get Started</button>
+  </header>
+
+  <div class="dot-nav" aria-hidden="false"></div>
+
+  <main id="mainCarousel">
+    <!-- HOME -->
+    <section id="home" class="fade-in" aria-labelledby="homeTitle">
+      <div class="hero">
+        <div class="hero-left">
+          <h1 id="homeTitle">Automate your workflows — scale with confidence</h1>
+          <p>We design and implement Zoho solutions that map to how your business actually works. From CRM setups to full-stack business automation — we make your systems work together.</p>
+          <div class="hero-cta">
+            <a class="cta" href="#contact">Talk to an expert</a>
+            <a class="card" href="#services" style="text-decoration:none;color:var(--text);display:inline-flex;align-items:center;">Explore Services →</a>
+          </div>
+          <div style="margin-top:18px;color:#475569;font-size:14px">Trusted by growing businesses and startups — implementation, migration, automation &amp; training.</div>
+        </div>
+
+        <div class="card hero-right" style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-weight:700">Quick Audit</div>
+            <div style="font-size:13px;color:#475569">5–10 min</div>
+          </div>
+          <div style="font-size:13px;color:#334155">Tell us your biggest pain — we'll point to quick wins and automation opportunities.</div>
+          <ul style="margin:8px 0 0;padding-left:18px;color:#0f5132;font-weight:600">
+            <li>CRM setup & lead routing</li>
+            <li>Process automation & workflows</li>
+            <li>Reports & dashboards</li>
+          </ul>
+          <div style="display:flex;gap:8px;margin-top:6px">
+            <a class="cta" href="#contact" style="flex:1;text-align:center">Request Audit</a>
+            <a class="cta" href="#about" style="flex:1;text-align:center">Who we are</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="fade-in" aria-labelledby="aboutTitle">
+      <div style="width:100%;max-width:1100px">
+        <h2 id="aboutTitle">About Us</h2>
+        <p style="color:#475569;max-width:900px">Led by a certified Zoho developer and consultant with 10+ years of experience building and automating sales and operations processes. We focus on pragmatic implementations that reduce manual work and increase data confidence.</p>
+
+        <div class="about-grid" style="margin-top:18px">
+          <div>
+            <div class="feature">
+              <h3 style="margin:0 0 8px">Our Approach</h3>
+              <p style="margin:0;color:#334155">Discovery → Design → Implement → Train → Support. We document processes, build reliable automations, and upskill your team so the solution sticks.</p>
+            </div>
+            <div class="feature" style="margin-top:12px">
+              <h3 style="margin:0 0 8px">Certifications</h3>
+              <p style="margin:0;color:#334155">Zoho Certified Developer, Zoho CRM Specialist, experience across SalesIQ, Flow, Books, Desk and Analytics.</p>
+            </div>
+          </div>
+
+          <div>
+            <div style="background:white;padding:18px;border-radius:12px;box-shadow:var(--card-shadow)">
+              <h3 style="margin-top:0">Why choose us</h3>
+              <ul style="padding-left:18px;margin:8px 0;color:#0f5132;font-weight:600">
+                <li>Process-first automations</li>
+                <li>Transparent delivery &amp; documentation</li>
+                <li>Affordable, modular engagement models</li>
+              </ul>
+              <p style="font-size:13px;color:#475569;margin:8px 0 0">We prefer small, iterative projects that deliver measurable ROI quickly.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="fade-in" aria-labelledby="servicesTitle">
+      <div style="width:100%;max-width:1200px">
+        <h2 id="servicesTitle">Services</h2>
+        <p style="color:#475569;max-width:900px">End-to-end Zoho solutions and business process automation — pick what you need.</p>
+
+        <div class="services-list" style="margin-top:18px">
+          <div class="service">
+            <h4>Zoho CRM Implementation</h4>
+            <p style="font-size:13px;color:#475569">Custom modules, lead routing, pipelines, scoring, and integrations with your website or marketing tools.</p>
+            <div style="margin-top:10px;display:flex;gap:8px"><a class="cta" href="#contact">Request Quote</a><a class="cta" href="#about">Learn More</a></div>
+          </div>
+
+          <div class="service">
+            <h4>Workflow Automation &amp; Deluge</h4>
+            <p style="font-size:13px;color:#475569">Automate repetitive tasks, alerts, and cross-product workflows across Zoho apps using Flow and Deluge scripts.</p>
+            <div style="margin-top:10px;display:flex;gap:8px"><a class="cta" href="#contact">Discuss Use-case</a></div>
+          </div>
+
+          <div class="service">
+            <h4>Reporting &amp; Dashboards</h4>
+            <p style="font-size:13px;color:#475569">Custom reports and KPI dashboards so your leadership sees reliable metrics at a glance.</p>
+            <div style="margin-top:10px;display:flex;gap:8px"><a class="cta" href="#contact">Get Dashboard</a></div>
+          </div>
+
+          <div class="service">
+            <h4>Data Migration</h4>
+            <p style="font-size:13px;color:#475569">Migrate legacy CRM and spreadsheets with validation and mapping — low-risk migration strategies.</p>
+            <div style="margin-top:10px;display:flex;gap:8px"><a class="cta" href="#contact">Start Migration</a></div>
+          </div>
+
+          <div class="service">
+            <h4>Training &amp; Support</h4>
+            <p style="font-size:13px;color:#475569">Hands-on training sessions and documentation so your team uses systems correctly from day one.</p>
+            <div style="margin-top:10px;display:flex;gap:8px"><a class="cta" href="#contact">Book Training</a></div>
+          </div>
+
+          <div class="service">
+            <h4>Integrations &amp; APIs</h4>
+            <p style="font-size:13px;color:#475569">Connect Zoho to your apps, payment gateways, or internal systems securely using APIs and middleware.</p>
+            <div style="margin-top:10px;display:flex;gap:8px"><a class="cta" href="#contact">Integrate</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="fade-in" aria-labelledby="contactTitle">
+      <div class="contact-wrap">
+        <h2 id="contactTitle">Contact Us</h2>
+        <p style="color:#475569;margin-top:0">Tell us about your company and how we can help — we typically respond within 1 business day.</p>
+
+        <form action="https://formsubmit.co/df3d3d0e584533dbaac23b5c807d1f11" method="POST" id="contactForm" novalidate>
+
+          <div>
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" placeholder="Your name" required />
+          </div>
+          <div>
+            <label for="company">Company</label>
+            <input id="company" name="company" type="text" placeholder="Company name" />
+          </div>
+
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@company.com" required />
+          </div>
+          <div>
+            <label for="phone">Contact Number</label>
+            <input id="phone" name="phone" type="tel" placeholder="+91 98765 43210" required/>
+          </div>
+
+          <div class="full">
+            <label for="message">How we can help</label>
+            <textarea id="message" name="message" placeholder="Short description of your needs..." required></textarea>
+          </div>
+
+          <div class="full" style="display:flex;gap:12px;align-items:center;justify-content:flex-end;margin-top:6px">
+            <button type="submit" class="submit">Send Request</button>
+            <div id="formStatus" style="font-size:13px;color:#334155"></div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Small helper: inject dots for each section
+    const main = document.getElementById('mainCarousel');
+    const sections = Array.from(document.querySelectorAll('main > section'));
+    const dotNav = document.querySelector('.dot-nav');
+    const navLinks = Array.from(document.querySelectorAll('.nav-link'));
+
+    // clear existing dots (if re-run)
+    dotNav.innerHTML = '';
+    sections.forEach((s, i) =>{
+      const d = document.createElement('div');
+      d.className='dot';
+      d.tabIndex=0;
+      d.title = s.id;
+      d.addEventListener('click', ()=> s.scrollIntoView({behavior:'smooth'}));
+      d.addEventListener('keydown',(e)=>{ if(e.key==='Enter') s.scrollIntoView({behavior:'smooth'}) });
+      dotNav.appendChild(d);
+    });
+
+    // highlight active section
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        const idx = sections.indexOf(entry.target);
+        const dots = Array.from(document.querySelectorAll('.dot'));
+        if(entry.isIntersecting){
+          dots.forEach(x=>x.classList.remove('active'));
+          dots[idx]?.classList.add('active');
+
+          // nav links
+          navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#'+entry.target.id));
+
+          // add in-view class for animations
+          entry.target.classList.add('in-view');
+        }
+      })
+    },{threshold:0.55});
+
+    sections.forEach(s=>observer.observe(s));
+
+    // keyboard navigation: arrow up/down
+    window.addEventListener('keydown', (e)=>{
+      if(['ArrowDown','ArrowUp','PageDown','PageUp'].includes(e.key)){
+        e.preventDefault();
+        const currentIdx = sections.findIndex(s=>s.getBoundingClientRect().top >= -10 && s.getBoundingClientRect().top < innerHeight/2);
+        if(e.key === 'ArrowDown' || e.key==='PageDown'){
+          const next = sections[Math.min(sections.length-1,currentIdx+1)]; next?.scrollIntoView({behavior:'smooth'});
+        } else {
+          const prev = sections[Math.max(0,currentIdx-1)]; prev?.scrollIntoView({behavior:'smooth'});
+        }
+      }
+    });
+
+    // nav anchor clicks smooth
+    navLinks.forEach(a => {
+      a.addEventListener('click', (ev)=>{
+        const target = document.querySelector(a.getAttribute('href'));
+        if(target){ ev.preventDefault(); target.scrollIntoView({behavior:'smooth'}) }
+      })
+    });
+
+    // contact form
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('formStatus');
+
+    form.addEventListener('submit', (e) => {
+    	const fd = new FormData(form);
+   	// Make phone optional (remove phone from required check) OR keep if you want it required
+   	if(!fd.get('name') || !fd.get('email') || !fd.get('message') || !fd.get('phone')) {
+      		e.preventDefault(); // block submit only on validation fail
+      		status.textContent = 'Please fill required fields.';
+      		status.style.color = 'crimson';
+      		return;
+   }
+  // allow default submit to FormSubmit
+  status.textContent = 'Sending...';
+  status.style.color = '#334155';
+  });
+
+    // fill current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // accessibility: reduce motion preference
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if(media.matches){ document.documentElement.style.scrollBehavior='auto'; }
+  </script>
+</body>
+</html>
