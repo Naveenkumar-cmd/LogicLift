@@ -47,7 +47,7 @@ The website is built using HTML, CSS, and JavaScript, all written inside a singl
 
 - Update content, styles, or email address as needed
 
-Notes:-
+# Notes
 
 - FormSubmit requires email verification on first use
 
