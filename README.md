@@ -1,9 +1,9 @@
-Zoho Consulting Agency Website:-
+# Zoho Consulting Agency Website
 
 This repository contains a single-page static website for a Zoho consulting agency.
 The website is built using HTML, CSS, and JavaScript, all written inside a single index.html file. It uses a vertical scrolling layout with clearly defined sections.
 
-Sections Included:-
+# Sections Included
 
 - Home
 
@@ -13,7 +13,7 @@ Sections Included:-
 
 - Contact Us
 
-Features:-
+# Features
 
 - Single-page layout
 
@@ -25,7 +25,7 @@ Features:-
 
 - Contact form integrated using FormSubmit to send inquiries to email
 
-Tech Stack:
+# Tech Stack
 
 - HTML
 
@@ -35,11 +35,11 @@ Tech Stack:
 
 - FormSubmit (third-party form service)
 
-Project Structure:-
+# Project Structure
 - /
 - └── index.html
 
-How to Use:-
+# How to Use
 
 - Clone the repository
 
