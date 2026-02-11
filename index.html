@@ -236,6 +236,13 @@
 	.logo-text {
     	white-space: nowrap;       /* Prevent text from wrapping */
 	}
+	/* New rules for color split */
+	.logo-logic {
+    	/* Inherits var(--primary) dark blue from .logo - no override needed */
+	}
+	.logo-lift {
+    	color: #00A89E; /* Teal color from logo's "Lift" part */
+	}
     </style>
 </head>
 
@@ -247,7 +254,9 @@
             	<div class="logo">
                 	<a href="#hero" class="logo-link">
                     	<img src="/logo.png" alt="LogicLift - Zoho Consulting" class="logo-img">
-                    	<span class="logo-text">LogicLift</span>
+                    	<span class="logo-text">
+                        	<span class="logo-logic">Logic</span><span class="logo-lift">Lift</span>
+                    	</span>
                 	</a>
             	</div>
             	<div class="menu-toggle"><i class="fas fa-bars"></i></div>
