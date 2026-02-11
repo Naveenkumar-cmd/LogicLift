@@ -9,11 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 	
 	<!-- Favicons -->
-	<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-	<link rel="shortcut icon" href="/favicon.ico" />
-	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-	<link rel="manifest" href="/site.webmanifest" />
+	<link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+	<link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+	<link rel="shortcut icon" href="/favicon/favicon.ico" />
+	<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+	<link rel="manifest" href="/favicon/site.webmanifest" />
 	
     <!-- SEO-->
     <meta name="description" content="Certified Zoho consultants providing Zoho CRM implementation, customization, migration, Deluge scripting, Zoho One, Zoho Creator, Zoho Books, Desk and Analytics solutions for businesses.">
@@ -215,26 +215,37 @@
             .about-content { flex-direction: column; }
             .hero-content h1 { font-size: 36px; }
             #hero { height: 80vh; }
+			.logo-img { height: 40px; }   /* Smaller on mobile */
         }
+		.logo-img {
+    		height: 50px;        /* Adjust this value to fit your design */
+    		width: auto;
+    		display: block;
+		}
     </style>
 </head>
+
 <body>
 
     <header>
-        <div class="container">
-            <nav>
-                <div class="logo">LogicLift</div>
-                <div class="menu-toggle"><i class="fas fa-bars"></i></div>
-                <div class="nav-links">
-                    <a href="#hero">Home</a>
-                    <a href="#services">Services</a>
-                    <a href="#about">About</a>
-                    <a href="#contact">Contact</a>
-		    <a href="https://calendly.com/ayush1999hzb/30min" target="_blank">Book a Meeting</a>
-                </div>
-            </nav>
-        </div>
-    </header>
+    	<div class="container">
+        	<nav>
+            	<div class="logo">
+                	<a href="#hero">
+                    	<img src="/logo.png" alt="LogicLift - Zoho Consulting" class="logo-img">
+                	</a>
+            	</div>
+            	<div class="menu-toggle"><i class="fas fa-bars"></i></div>
+            	<div class="nav-links">
+                	<a href="#hero">Home</a>
+                	<a href="#services">Services</a>
+                	<a href="#about">About</a>
+                	<a href="#contact">Contact</a>
+                	<a href="https://calendly.com/ayush1999hzb/30min" target="_blank">Book a Meeting</a>
+            	</div>
+        	</nav>
+    	</div>
+	</header>
 
     <section id="hero">
         <div class="container">
