@@ -78,6 +78,8 @@
             font-size: 28px;
             font-weight: 700;
             color: var(--primary);
+			display: flex;
+    		align-items: center;
         }
         .nav-links a {
             color: var(--secondary);
@@ -222,6 +224,18 @@
     		width: auto;
     		display: block;
 		}
+		/* Make the entire logo (image + text) clickable as one link */
+	.logo-link {
+    	display: flex;
+    	align-items: center;
+    	gap: 12px;                  /* Space between image and text */
+    	text-decoration: none;     /* Remove underline from link */
+    	color: inherit;            /* Inherit color from parent to avoid blue link color */
+	}
+	/* Text-specific styles - only the essentials to preserve existing appearance */
+	.logo-text {
+    	white-space: nowrap;       /* Prevent text from wrapping */
+	}
     </style>
 </head>
 
@@ -231,9 +245,10 @@
     	<div class="container">
         	<nav>
             	<div class="logo">
-                	<a href="#hero">
+                	<a href="#hero" class="logo-link">
                     	<img src="/logo.png" alt="LogicLift - Zoho Consulting" class="logo-img">
-                	</a> LogicLift
+                    	<span class="logo-text">LogicLift</span>
+                	</a>
             	</div>
             	<div class="menu-toggle"><i class="fas fa-bars"></i></div>
             	<div class="nav-links">
@@ -365,5 +380,3 @@
     </script>
 </body>
 </html>
-
-
