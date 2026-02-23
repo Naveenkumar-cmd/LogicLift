@@ -6,9 +6,10 @@ The website is built using HTML, CSS, and JavaScript, all written inside a singl
 # Sections Included
 
 - Home
-- About Us
 - Services
-- Contact Us
+- About
+- Contact
+- Book a Meeting
 
 # Features
 
@@ -28,7 +29,11 @@ The website is built using HTML, CSS, and JavaScript, all written inside a singl
 # Project Structure
 
 - /
+- └── favicon
 - └── index.html
+- └── README.md
+- └── logo.png
+- └── thankyou.html
 
 # How to Use
 
